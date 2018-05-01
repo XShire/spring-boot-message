@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liucz.message.mapper.MessageSenderMapper">
+  <resultMap id="BaseResultMap" type="com.liucz.message.model.message.MessageSender">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="message_body_id" jdbcType="INTEGER" property="messageBodyId" />
+    <result column="message_title" jdbcType="VARCHAR" property="messageTitle" />
+    <result column="sms" jdbcType="INTEGER" property="sms" />
+    <result column="tms" jdbcType="INTEGER" property="tms" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, uid, message_body_id, message_title, sms, tms, create_time, update_time, deleted
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_message_sender
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.liucz.message.model.message.MessageSender">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_message_sender (uid, message_body_id, message_title, 
+      sms, tms, create_time, 
+      update_time, deleted)
+    values (#{uid,jdbcType=INTEGER}, #{messageBodyId,jdbcType=INTEGER}, #{messageTitle,jdbcType=VARCHAR}, 
+      #{sms,jdbcType=INTEGER}, #{tms,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liucz.message.model.message.MessageSender">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_message_sender
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="messageBodyId != null">
+        message_body_id,
+      </if>
+      <if test="messageTitle != null">
+        message_title,
+      </if>
+      <if test="sms != null">
+        sms,
+      </if>
+      <if test="tms != null">
+        tms,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="messageBodyId != null">
+        #{messageBodyId,jdbcType=INTEGER},
+      </if>
+      <if test="messageTitle != null">
+        #{messageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="sms != null">
+        #{sms,jdbcType=INTEGER},
+      </if>
+      <if test="tms != null">
+        #{tms,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liucz.message.model.message.MessageSender">
+    update t_message_sender
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="messageBodyId != null">
+        message_body_id = #{messageBodyId,jdbcType=INTEGER},
+      </if>
+      <if test="messageTitle != null">
+        message_title = #{messageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="sms != null">
+        sms = #{sms,jdbcType=INTEGER},
+      </if>
+      <if test="tms != null">
+        tms = #{tms,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liucz.message.model.message.MessageSender">
+    update t_message_sender
+    set uid = #{uid,jdbcType=INTEGER},
+      message_body_id = #{messageBodyId,jdbcType=INTEGER},
+      message_title = #{messageTitle,jdbcType=VARCHAR},
+      sms = #{sms,jdbcType=INTEGER},
+      tms = #{tms,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
